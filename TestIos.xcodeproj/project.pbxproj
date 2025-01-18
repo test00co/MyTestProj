@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXFileReference section */
@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		053AAD1B2D3BB02900110DCE /* Exceptions for "TestIos" folder in "TestIos" target */ = {
+		053AAD1B2D3BB02900110DCE /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -21,14 +21,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		053AAD0B2D3BB02700110DCE /* TestIos */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				053AAD1B2D3BB02900110DCE /* Exceptions for "TestIos" folder in "TestIos" target */,
-			);
-			path = TestIos;
-			sourceTree = "<group>";
-		};
+		053AAD0B2D3BB02700110DCE /* TestIos */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (053AAD1B2D3BB02900110DCE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = TestIos; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +92,7 @@
 				};
 			};
 			buildConfigurationList = 053AAD042D3BB02700110DCE /* Build configuration list for PBXProject "TestIos" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -107,7 +101,6 @@
 			);
 			mainGroup = 053AAD002D3BB02700110DCE;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = 053AAD0A2D3BB02700110DCE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
