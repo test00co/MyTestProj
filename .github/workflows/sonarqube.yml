@@ -11,18 +11,32 @@ jobs:
     env:
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Xcode
+        uses: macos-setup-xcode@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Install Build Wrapper
-        uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v4
-      - name: Run Build Wrapper
-        run: |
-          build-wrapper-macosx-x86 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} <insert_your_clean_build_command>
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v4
+          xcode-version: '16.2'
+
+      - name: Run SonarQube analysis
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            --define sonar.cfamily.compile-commands="${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Store your SonarQube token in GitHub Secrets
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=testiOS \
+            -Dsonar.organization=demo2323 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.sources=. \
+            -Dsonar.exclusions="**/*.xcodeproj,**/*.xcworkspace,**/*.swiftdeps,**/*.plist,**/*.framework,**/*.dSYM,**/*.h" \
+            -Dsonar.swift.version=5.4  # Replace with the version of Swift you're using
+          
+      - name: Post PR comment if analysis fails
+        if: failure()
+        run: |
+          COMMENT_BODY="SonarQube analysis failed. Please check the SonarQube dashboard for more details."
+          PR_URL="https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
+          curl -X POST -H "Authorization: token ${{ secrets.GIT_TOKEN }}" \
+            -d "{\"body\": \"$COMMENT_BODY\"}" \
+            $PR_URL
