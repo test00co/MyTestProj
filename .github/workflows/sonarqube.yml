@@ -18,7 +18,6 @@ jobs:
         uses: macos-setup-xcode@v2
         with:
           xcode-version: '16.2'
-
       - name: Run SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Store your SonarQube token in GitHub Secrets
